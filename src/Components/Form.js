@@ -96,26 +96,26 @@ const PizzaBuilder = () => {
         {errors.size.length > 0 ? (<p className="errors">{errors.size}</p>): null}
       </label>
 
-      <label htmlfor="sauce">Choose a sauce
+      <label htmlfor="sauce">Choose a sauce:
         <input type="radio" name="sauce" id="marinara" onChange={inputChange} value={formState.sauce}>Marinara</input>
         <input type="radio" name="sauce" id="alfredo" onChange={inputChange} value={formState.sauce}>Alfredo</input>
         <input type="radio" name="sauce" id="bbq" onChange={inputChange} value={formState.sauce}>BBQ</input>
         <input type="radio" name="sauce" id="spicy" onChange={inputChange} value={formState.sauce}>Spicy Marinara</input>
       </label>
 
-      <label htmlfor="toppings">Select Your Toppings
-        <input type="checkbox" name="toppings" id="pepperoni" checked={formState.terms} onChange={inputChange}>Pepperoni</input>
-        <input type="checkbox" name="toppings" id="sausage" checked={formState.terms} onChange={inputChange}>sausage</input>
-        <input type="checkbox" name="toppings" id="chicken" checked={formState.terms} onChange={inputChange}>Chicken</input>
-        <input type="checkbox" name="toppings" id="canadianbacon" checked={formState.terms} onChange={inputChange}>Canadian Bacon</input>
-        <input type="checkbox" name="toppings" id="onions" checked={formState.terms} onChange={inputChange}>Onions</input>
-        <input type="checkbox" name="toppings" id="Peppers" checked={formState.terms} onChange={inputChange}>Peppers</input>
-        <input type="checkbox" name="toppings" id="mushrooms" checked={formState.terms} onChange={inputChange}>Mushrooms</input>
-        <input type="checkbox" name="toppings" id="pineapple" checked={formState.terms} onChange={inputChange}>Pineapple</input>
+      <label htmlfor="toppings">Select Your Toppings:
+        <input type="checkbox" name="toppings" id="pepperoni" checked={formState.toppings} onChange={inputChange}>Pepperoni</input>
+        <input type="checkbox" name="toppings" id="sausage" checked={formState.toppings} onChange={inputChange}>sausage</input>
+        <input type="checkbox" name="toppings" id="chicken" checked={formState.toppings} onChange={inputChange}>Chicken</input>
+        <input type="checkbox" name="toppings" id="canadianbacon" checked={formState.toppings} onChange={inputChange}>Canadian Bacon</input>
+        <input type="checkbox" name="toppings" id="onions" checked={formState.toppings} onChange={inputChange}>Onions</input>
+        <input type="checkbox" name="toppings" id="Peppers" checked={formState.toppings} onChange={inputChange}>Peppers</input>
+        <input type="checkbox" name="toppings" id="mushrooms" checked={formState.toppings} onChange={inputChange}>Mushrooms</input>
+        <input type="checkbox" name="toppings" id="pineapple" checked={formState.toppings} onChange={inputChange}>Pineapple</input>
       </label>
 
       <label htmlfor="special">Any special instructions?
-        <textarea id="special" type="text" name="special" onChange={inputChange} value={formState.special} data-cy="special" />
+        <input id="special" type="text" name="special" onChange={inputChange} value={formState.special} data-cy="special" />
       </label>
 
       <label htmlfor="quantity"> Choose a quantity
