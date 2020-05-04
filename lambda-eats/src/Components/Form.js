@@ -44,4 +44,71 @@ export default function Form() {
     special: Yup.string(),
     quantity: Yup.string().required("Must choose QTY."),
   });
+
+  const validateChange = event => {
+    Yup
+      .reach(formSchema, event.target.name)
+      .validate(event.target.value)
+      .then(valid => {
+        setErrors({...errors, [event.target.name]: ""});
+      })
+      .catch(error => {
+        console.log("error", error);
+        setErrors({...errors, [event.target.name]: error.console.errors[0]});
+      });
+  };
+
+  useEffect(() => {
+    formSchema.isValid(formState).then(valid => {
+      console.log("valid?", valid);
+      setIsButtonDisabled(!valid);
+    });
+  },[formState]);
+
+  const formSubmit = event => {
+    event.preventDefault();
+
+    axios
+      .post("https://reqres.in/api/users", formState)
+      .then(response => {
+        setPost(response.data);
+        
+        setFormState({
+          name: "",
+          size: "",
+          sauce: "",
+          pepperoni: false,
+          sausage: false,
+          canadianbacon: false,
+          chicken: false,
+          veggies: false,
+          pineapple: false,
+          substitutions: "",
+          special: "",
+          quantity: "",
+        });
+        
+        setServerError(null);
+      })
+
+      .catch(error => {
+        setServerError("Whatever")
+      })
+  }
+
+  const inputChange = event => {
+    event.persist();
+
+    const newFormData = {
+      ...formState, 
+      [event.target.name]: event.target.type === "checkbox" ? event.target.checked : event.target.value
+    };
+    setFormState(newFormData);
+  };
+
+  return (
+    <form onSubmit={formSubmit}>
+      {serverError ? <p className="error">{serverError}</p> : null}
+    </form>
+  )
 }
