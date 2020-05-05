@@ -9,7 +9,14 @@ const PizzaBuilder = () => {
     size: "",
     sauce: "",
     toppings: "",
-    substitutions: "",
+    pepperoni: "",
+    sausage: "",
+    chicken: "",
+    canadianbacon: "",
+    onions: "",
+    mushrooms: "",
+    peppers: "",
+    pineapple: "",
     special: "",
     quantity: ""
   }
@@ -22,7 +29,16 @@ const PizzaBuilder = () => {
   const formSchema = Yup.object().shape({
     name: Yup.string().required("Name is a required field."),
     size: Yup.string().required("Please choose a size."),
-    special: Yup.string(),
+    sauce: Yup.boolean().required("Please choose a sauce"),
+    pepperoni: Yup.boolean().defined(),
+    sausage: Yup.boolean().defined(),
+    chicken: Yup.boolean().defined(),
+    canadianbacon: Yup.boolean().defined(),
+    onions: Yup.boolean().defined(),
+    mushrooms: Yup.boolean().defined(),
+    peppers: Yup.boolean().defined(),
+    pineapple: Yup.boolean().defined(),
+    special: Yup.string().notRequired(),
     quantity: Yup.string().required("Please choose a quantity"),
   });
 
@@ -54,18 +70,32 @@ const PizzaBuilder = () => {
     axios.post("https://reqres.in/api/users", formState)
           .then(response => {
             setPost(response.data);
+            console.log("Success", post);
+            console.log(response.data.size)
             setFormState({
               name: "",
-              size: "",
+              size: response.data.size,
               sauce: "",
               toppings: "",
-              substitutions: "",
+              pepperoni: false,
+              sausage: false,
+              chicken: false,
+              canadianbacon: false,
+              onions: false,
+              mushrooms: false,
+              peppers: false,
+              pineapple: false,
               special: "",
               quantity: ""
             });
           })
         .catch(err => console.log(err.response))
   };
+
+  const sent = (event) => {
+    event.preventDefault();
+    alert("Your order has been placed")
+  }
 
   const inputChange = event => {
     console.log("There's been an input change", event.target.value);
@@ -81,7 +111,13 @@ const PizzaBuilder = () => {
     <form onSubmit={formSubmit}>
       <label htmlfor="name">
         Name
-        <input id="name" type="text" name="name" onChange={inputChange} value={formState.name} data-cy="name" />
+        <input 
+          id="name" 
+          type="text" 
+          name="name" 
+          onChange={inputChange} 
+          value={formState.name} 
+          data-cy="name" />
         {errors.name.length > 0 ? (<p className="error">{errors.name}</p>): null}
       </label>
 
@@ -97,25 +133,109 @@ const PizzaBuilder = () => {
       </label>
 
       <label htmlfor="sauce">Choose a sauce:
-        <input type="radio" name="sauce" id="marinara" onChange={inputChange} value={formState.sauce}>Marinara</input>
-        <input type="radio" name="sauce" id="alfredo" onChange={inputChange} value={formState.sauce}>Alfredo</input>
-        <input type="radio" name="sauce" id="bbq" onChange={inputChange} value={formState.sauce}>BBQ</input>
-        <input type="radio" name="sauce" id="spicy" onChange={inputChange} value={formState.sauce}>Spicy Marinara</input>
+        <input 
+          type="radio" 
+          name="sauce" 
+          id="marinara" 
+          onChange={inputChange} 
+          checked={formState.sauce} /> Marinara
+
+        <input 
+          type="radio" 
+          name="sauce" 
+          id="alfredo" 
+          onChange={inputChange} 
+          value={formState.sauce} /> Alfredo
+
+        <input 
+          type="radio" 
+          name="sauce" 
+          id="bbq" 
+          onChange={inputChange} 
+          value={formState.sauce} />BBQ
+
+        <input 
+          type="radio" 
+          name="sauce" 
+          id="spicy" 
+          onChange={inputChange} 
+          value={formState.sauce}/>Spicy Marinara
       </label>
 
-      <label htmlfor="toppings">Select Your Toppings:
-        <input type="checkbox" name="toppings" id="pepperoni" checked={formState.toppings} onChange={inputChange}>Pepperoni</input>
-        <input type="checkbox" name="toppings" id="sausage" checked={formState.toppings} onChange={inputChange}>sausage</input>
-        <input type="checkbox" name="toppings" id="chicken" checked={formState.toppings} onChange={inputChange}>Chicken</input>
-        <input type="checkbox" name="toppings" id="canadianbacon" checked={formState.toppings} onChange={inputChange}>Canadian Bacon</input>
-        <input type="checkbox" name="toppings" id="onions" checked={formState.toppings} onChange={inputChange}>Onions</input>
-        <input type="checkbox" name="toppings" id="Peppers" checked={formState.toppings} onChange={inputChange}>Peppers</input>
-        <input type="checkbox" name="toppings" id="mushrooms" checked={formState.toppings} onChange={inputChange}>Mushrooms</input>
-        <input type="checkbox" name="toppings" id="pineapple" checked={formState.toppings} onChange={inputChange}>Pineapple</input>
+      <label htmlfor="toppings">
+        <input 
+          type="checkbox" 
+          name="pepperoni"
+          checked={formState.pepperoni}
+          onChange={inputChange}
+          data-cy="pepperoni"  
+          />Pepperoni
+
+        <input 
+          type="checkbox" 
+          name="sausage"
+          data-cy="sausage"
+          checked={formState.sausage}
+          onChange={inputChange} 
+          />Sausage
+        
+        <input 
+          type="checkbox" 
+          name="chicken"
+          data-cy="chicken"
+          checked={formState.chicken}
+          onChange={inputChange} 
+         />Chicken
+        
+        <input 
+          type="checkbox" 
+          name="canadianbacon"
+          data-cy="canadianbacon"
+          checked={formState.canadianbacon}
+          onChange={inputChange}   
+         />Canadian Bacon
+    
+        <input 
+          type="checkbox" 
+          name="onions"
+          data-cy="onions"
+          checked={formState.onions}
+          onChange={inputChange}   
+         />Onions
+        
+        <input 
+          type="checkbox" 
+          name="peppers"
+          data-cy="peppers"
+          checked={formState.peppers}
+          onChange={inputChange}  
+          />Peppers
+        
+        <input 
+          type="checkbox" 
+          name="mushrooms"
+          data-cy="mushrooms"
+          checked={formState.mushrooms}
+          onChange={inputChange} 
+          />Mushrooms
+        
+        <input 
+          type="checkbox" 
+          name="pineapple"
+          data-cy="pineapple"
+          checked={formState.pineapple}
+          onChange={inputChange}  
+         />Pineapple
+      
       </label>
 
-      <label htmlfor="special">Any special instructions?
-        <input id="special" type="text" name="special" onChange={inputChange} value={formState.special} data-cy="special" />
+      <label htmlfor="special">Special Instructions
+        <textarea 
+          name="special"
+          id="specialInput"
+          placeholder="Anything to Add?"
+          onChange={inputChange}
+          value={formState.special} />
       </label>
 
       <label htmlfor="quantity"> Choose a quantity
@@ -125,9 +245,10 @@ const PizzaBuilder = () => {
 
       <pre>{JSON.stringify(post, null, 2)}</pre>
 
-      <button disabled={isButtonDisabled} type="submit">Submit Your Order</button>
+      <button disabled={isButtonDisabled} onSubmit={sent} type="submit">Submit Your Order</button>
+
     </form>
-  )
+  );
 }
 
 export default PizzaBuilder;
