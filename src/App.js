@@ -1,19 +1,22 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
 import PizzaBuilder from "./Components/Form";
 import Home from "./Components/Home";
+import {Body, Title} from './Components/Styles';
 
 const App = () => {
   return (
-    <div>
-      <Router>
+    <Body>
+      <Title>Lambda Eats!</Title>
+        <Link to="/">
+          <button>Home</button>
+        </Link>
+        <button>Contact</button>
         <Switch>
           <Route path="/Pizza" component={PizzaBuilder} />
-          <Route path="/" component = {Home} />
+          <Route path="/" component={Home} />
         </Switch>
-      </Router>
-      
-    </div>
+    </Body>
   );
 };
 export default App;
