@@ -5,7 +5,9 @@ const Home = () => {
   return (
     <div>
       <Route>
-        <Link to="/Pizza">Order Here!</Link>
+        <Link to="/Pizza">
+          <button name="order">Order Here!</button>
+        </Link>
       </Route>
     </div>
   )
